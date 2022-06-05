@@ -21,36 +21,6 @@ pull_files = pd.read_csv('datasets/pull_files.csv')
 ```
 
 
-```python
-%%nose
-
-import pandas as pd
-
-def test_pulls_one():
-    correct_pulls_one = pd.read_csv('datasets/pulls_2011-2013.csv')
-    assert correct_pulls_one.equals(pulls_one), \
-    "Read in 'datasets/pulls_2011-2013.csv' using read_csv()."
-
-def test_pulls_two():
-    correct_pulls_two = pd.read_csv('datasets/pulls_2014-2018.csv')
-    assert correct_pulls_two.equals(pulls_two), \
-   "Read in 'datasets/pulls_2014-2018.csv' using read_csv()."
-    
-def test_pull_files():
-    correct_pull_files = pd.read_csv('datasets/pull_files.csv')
-    assert correct_pull_files.equals(pull_files), \
-    "Read in 'pull_files.csv' using read_csv()."
-```
-
-
-
-
-
-
-    3/3 tests passed
-
-
-
 
 ## 2. Preparing and cleaning the data
 <p>First, we will need to combine the data from the two separate pull DataFrames. </p>
@@ -127,34 +97,6 @@ pulls.head()
   </tbody>
 </table>
 </div>
-
-
-
-
-```python
-%%nose
-
-# one or more tests of the students code. 
-# The @solution should pass the tests.
-# The purpose of the tests is to try to catch common errors and to 
-# give the student a hint on how to resolve these errors.
-
-def test_pulls_length():
-    assert len(pulls) == 6200, \
-    'The DataFrame pulls does not have the correct number of rows. Did you correctly append pulls_one to pulls_two?'
-
-def test_pulls_type():
-    assert type(pulls['date'].dtype) is pd.core.dtypes.dtypes.DatetimeTZDtype, \
-    'The date for the pull requests is not the correct type.'
-```
-
-
-
-
-
-
-    2/2 tests passed
-
 
 
 
@@ -236,38 +178,6 @@ data.head()
 </div>
 
 
-
-
-```python
-%%nose
-
-# one or more tests of the students code. 
-# The @solution should pass the tests.
-# The purpose of the tests is to try to catch common errors and to 
-# give the student a hint on how to resolve these errors.
-
-def test_merge():
-    assert len(data) == 85588, \
-    'The merged DataFrame does not have the correct number of rows.'
-
-def test_merge_dataframes():
-    correct_data = pulls.merge(pull_files, on='pid')
-    also_correct_data = pull_files.merge(pulls, on='pid')
-    assert correct_data.equals(data) or \
-        also_correct_data.equals(data), \
-        "The DataFrames are not merged correctly."        
-```
-
-
-
-
-
-
-    2/2 tests passed
-
-
-
-
 ## 4. Is the project still actively maintained?
 <p>The activity in an open source project is not very consistent. Some projects might be active for many years after the initial release, while others can slowly taper out into oblivion. Before committing to contributing to a project, it is important to understand the state of the project. Is development going steadily, or is there a drop? Has the project been abandoned altogether?</p>
 <p>The data used in this project was collected in January of 2018. We are interested in the evolution of the number of contributions up to that date.</p>
@@ -306,26 +216,6 @@ counts.plot(kind='bar', figsize = (12,4))
 ![png](output_10_1.png)
     
 
-
-
-```python
-%%nose
-    
-def test_group_and_count():
-    assert len(counts) == 74, \
-    "The data was not grouped correctly. The history only spans 74 months."
-```
-
-
-
-
-
-
-    1/1 tests passed
-
-
-
-
 ## 5. Is there camaraderie in the project?
 <p>The organizational structure varies from one project to another, and it can influence your success as a contributor. A project that has a very small community might not be the best one to start working on. The small community might indicate a high barrier of entry. This can be caused by several factors, including a community that is reluctant to accept pull requests from "outsiders," that the code base is hard to work with, etc. However, a large community can serve as an indicator that the project is regularly accepting pull requests from new contributors. Such a project would be a good place to start.</p>
 <p>In order to evaluate the dynamics of the community, we will plot a histogram of the number of pull requests submitted by each user. A distribution that shows that there are few people that only contribute a small number of pull requests can be used as in indicator that the project is not welcoming of new contributors. </p>
@@ -353,31 +243,6 @@ by_user.hist()
     
 ![png](output_13_1.png)
     
-
-
-
-```python
-%%nose
-
-# one or more tests of the students code. 
-# The @solution should pass the tests.
-# The purpose of the tests is to try to catch common errors and to 
-# give the student a hint on how to resolve these errors.
-
-def test_by_user():
-    assert len(by_user) == 467 or len(by_user) == 464, \
-    'The grouping by user is not correct'
-```
-
-
-
-
-
-
-    1/1 tests passed
-
-
-
 
 ## 6. What files were changed in the last ten pull requests?
 <p>Choosing the right place to make a contribution is as important as choosing the project to contribute to. Some parts of the code might be stable, some might be dead. Contributing there might not have the most impact. Therefore it is important to understand the parts of the system that have been recently changed. This allows us to pinpoint the "hot" areas of the code where most of the activity is happening. Focusing on those parts might not the most effective use of our times.</p>
@@ -435,39 +300,6 @@ files
      'test/files/run/t8348/TableColumn.java',
      'test/files/run/t8348/TableColumnImpl.java',
      'test/files/run/t8348/Test.scala'}
-
-
-
-
-```python
-%%nose
-
-# one or more tests of the students code. 
-# The @solution should pass the tests.
-# The purpose of the tests is to try to catch common errors and to 
-# give the student a hint on how to resolve these errors.
-
-def test_last_10():
-    assert len(last_10) == 10, \
-    'You need to select the last 10 pull requests.'
-
-def test_join():
-    assert len(joined_pr) == 34, \
-    'The join was not done correctly. You lost some pull requests in the process.'
-    
-def test_no_files():
-    assert len(files) == 34, \
-    'You did not select the right number of pull requests.'
-```
-
-
-
-
-
-
-    3/3 tests passed
-
-
 
 
 ## 7. Who made the most pull requests to a given file?
@@ -554,36 +386,6 @@ author_counts.nlargest(3, 'file')
 </table>
 </div>
 
-
-
-
-```python
-%%nose
-
-# one or more tests of the students code. 
-# The @solution should pass the tests.
-# The purpose of the tests is to try to catch common errors and to 
-# give the student a hint on how to resolve these errors.
-
-def test_selecting_commits():
-    assert len(file_pr) == 30, \
-    'You did not filter the data on the right file.'
-    
-def test_author_counts():
-    assert len(author_counts) == 11, \
-    'The number of authors is not correct.'
-```
-
-
-
-
-
-
-    2/2 tests passed
-
-
-
-
 ## 8. Who made the last ten pull requests on a given file?
 <p>Open source projects suffer from fluctuating membership. This makes the problem of finding the right person more challenging: the person has to be knowledgeable <em>and</em> still be involved in the project. A person that contributed a lot in the past might no longer be available (or willing) to help. To get a better understanding, we need to investigate the more recent history of that particular part of the system. </p>
 <p>Like in the previous task, we will look at the history of  <code>src/compiler/scala/reflect/reify/phases/Calculate.scala</code>.</p>
@@ -609,40 +411,6 @@ users_last_10
 
 
     {'bjornregnell', 'retronym', 'soc', 'starblood', 'xeno-by', 'zuvizudar'}
-
-
-
-
-```python
-%%nose
-
-# one or more tests of the students code. 
-# The @solution should pass the tests.
-# The purpose of the tests is to try to catch common errors and to 
-# give the student a hint on how to resolve these errors.
-
-def test_join():
-    assert len(joined_pr) == len(file_pr), \
-    'The join was not done correctly. You lost some pull requests in the process.'
-    
-def test_file_pr():
-    assert len(joined_pr) == 30, \
-    'The file does not have the correct number of pull requests.'
-    
-def test_last_10():
-    assert len(users_last_10) == 6, \
-    'You did not select the right number of pull requests.'
-```
-
-
-
-
-
-
-    3/3 tests passed
-
-
-
 
 ## 9. The pull requests of two special developers
 <p>Now that we have identified two potential contacts in the projects, we need to find the person who was most involved in the project in recent times. That person is most likely to answer our questions. For each calendar year, we are interested in understanding the number of pull requests the authors submitted. This will give us a high-level image of their contribution trend to the project.</p>
@@ -678,36 +446,6 @@ counts_wide.plot(kind='bar')
     
 ![png](output_25_1.png)
     
-
-
-
-```python
-%%nose
-
-# one or more tests of the students code. 
-# The @solution should pass the tests.
-# The purpose of the tests is to try to catch common errors and to 
-# give the student a hint on how to resolve these errors.
-
-def test_author_pr():
-    assert len(by_author) == 715, \
-    "The wrong number of pull requests have been selected."
-    
-def test_counts():
-    assert len(counts) == 11, \
-    'The data should span 6 years.'
-```
-
-
-
-
-
-
-    2/2 tests passed
-
-
-
-
 ## 10. Visualizing the contributions of each developer
 <p>As mentioned before, it is important to make a distinction between the global expertise and contribution levels and the contribution levels at a more granular level (file, submodule, etc.) In our case, we want to see which of our two developers of interest have the most experience with the code in a given file. We will measure experience by the number of pull requests submitted that affect that file and how recent those pull requests were submitted.</p>
 
@@ -742,41 +480,6 @@ by_file_wide.plot(kind='bar')
 
     
 ![png](output_28_1.png)
-    
-
-
-
-```python
-%%nose
-
-# one or more tests of the students code. 
-# The @solution should pass the tests.
-# The purpose of the tests is to try to catch common errors and to 
-# give the student a hint on how to resolve these errors.
-
-def test_by_author():
-    assert len(by_author) == 16999, \
-    'Selecting by author did not produce the expected results.'
-    
-def test_by_file():
-    assert len(by_file) == 15, \
-    'Selecting by file did not produce the expected results.'
-    
-# def test_grouped():
-#     assert len(grouped) == 4, \
-#     'There should be only 3 years that matches our data.'
-    
-def test_by_file_wide():
-    assert len(by_file_wide) == 3, \
-    'There should be only 3 years that matches our data.'
-```
-
-
-
-
-
-
-    3/3 tests passed
 
 
 
